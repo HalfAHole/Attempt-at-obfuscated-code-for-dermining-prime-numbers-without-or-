@@ -3,20 +3,24 @@ Not too sure why a copy and paste from Word has so may italics in it.
 This program uses an old trick to determine whether a number is divisible by a factor or not by performing a series of multiplication and addition/subtraction calculations. We
 take a number and apply a rule to it.
 
-You may have encountered the trick of figuring out whether a number is divisble by 7 by using a multiple and subtract method on the digits. This program extends that concept as
-there is a pattern to this and the formulas have been determined for all numbers ending in 1,3,7 or 9 (see below). We do not need to determine this formula for numbers divisible
-by 2,3 or 5 as there are other simple methods for doing this.
+You may have encountered the trick of figuring out whether a number is divisible by 7 by using a multiply and subtract method on the digits. This program extends that concept as
+there is a pattern to the numbers and the formulas have been determined for all numbers ending in 1,3,7 or 9 (see below). We do not need to determine this formula for numbers
+divisible by 2,3 or 5 as there are other simple methods for doing this.
 
-Before we go on, I just need to point out that this is the result of learning to program in about 6 months. I will make no apologies for style as I like to see a lot of code on
-the one screen. Apologies for the actual code content will be granted on request. ;-)
+Before we go on, I just need to point out that this is the result of learning to program in about 6 months. I will make no apologies for layou style as I like to see a lot of
+code onthe one screen. Apologies for the actual code content will be granted on request. ;-)
 
-On with the show.
+On with the show. The essence of this program is to take a number with a lot of digits and then shrink that down to a number that we can then use subtraction as way of doing
+division with up to 8 steps of subtraction in the final test of divisibility. In half out factors we are using an addition and divide by ten method before we do the final test 
+nd the other half use subtraction (assuming an even distribution of primes in  respect to their last digit). Divide by ten is done by getting rid of the last digit in our array,
+the ones digit, eg 1 2 3 4 5 becomes 1 2 3 4.
 
 The multipliers we use are calculated according to the rules as shown under the table below:
 
 Setup for factors ending in 1 - multiplier is factor divided by 10 as integer. Multiples of 1s are subtracted.
 
-Setup for factors ending in 3 and 7 – multiplier is factor divided by 10 as integer then 1 is added to 3s and 2 to 7s. Multiples of 3s are added. Multiples of 7s are subtracted.
+Setup for factors ending in 3 and 7 – multiplier is factor divided by 10 as integer, then multiplied by 3, then 1 is added to 3s and 2 to 7s.
+Multiples of 3s are added.Multiples of 7s are subtracted.
 
 Setup for factors ending in 9 - multiplier is factor divided by 10 as integer then 1 is added to that number. Multiples of 9s are added.
 
@@ -58,6 +62,8 @@ divisibility of five is similarly calculated by checking for 0 or 5. Divisibilit
 We can check very large number with these tricks.
 A separate 7 test is done and if the number fails this test we go into a loop testing factors starting at 7 and alternating in +2 and +4 to skip factors of three
 A different test is done for 11s; two sums are made form each alternating digit and then one sum subtracted from the other:
+A test for 13s is also done and this method is described in the 2,3,5,7,11,13 test project. It's on the same principle as the above 11 method but uses numbers made up of 
+bunches of three digits.
 
 14641
 (1+6+1)-( 4+5)=0
@@ -65,44 +71,22 @@ A different test is done for 11s; two sums are made form each alternating digit 
 2746502
 (2+4+5+2)-(7+6+0)=0
 
-Note: this test has been superceded by the 7,11,13 test.
 
  
 Multiplier values for some factors:
-1s	minus	3s	plus	7s	minus	9s	plus		7s	plus		3s	minus
-1	0	3	1	7	2	9	1		7	5		3	2
-11	1	13	4	17	5	19	2		17	12		13	9
-21	2	23	7	27	8	29	3		27	19		23	16
-31	3	33	10	37	11	39	4		37	26		33	23
-41	4	43	13	47	14	49	5		47	33		43	30
-51	5	53	16	57	17	59	6		57	40		53	37
-61	6	63	19	67	20	69	7		67	47		63	44
-71	7	73	22	77	23	79	8		77	54		73	51
-81	8	83	25	87	26	89	9		87	61		83	58
-91	9	93	28	97	29	99	10		97	68		93	65
-101	10	103	31	107	32	109	11		107	75		103	72
-111	11	113	34	117	35	119	12		117	82		113	79
-121	12	123	37	127	38	129	13		127	89		123	86
-131	13	133	40	137	41	139	14		137	96		133	93
-141	14	143	43	147	44	149	15		147	103		143	100
-151	15	153	46	157	47	159	16		157	110		153	107
-161	16	163	49	167	50	169	17		167	117		163	114
-171	17	173	52	177	53	179	18		177	124		173	121
-181	18	183	55	187	56	189	19		187	131		183	128
-191	19	193	58	197	59	199	20		197	138		193	135
-201	20	203	61	207	62	209	21		207	145		203	142
-211	21	213	64	217	65	219	22		217	152		213	149
-
-The columns at the right shows that 7s can be done with an additive process and 3s with a subtractive process, these are not used.
-
+1s minus	3s	plus	7s	minus	9s	plus		7s	plus		3s	minus
+11 1     13 4    17 5     19 2     7  5     23 16
+31 3     43 13   37 11    29 3     47 33    53 37
+<<Whole table removed as it did not display properly on viewing.>>
+ As we can see our multipliers are less than a third (or less) of our factors and the additional columns [7s plus and 3s minus] have higher multipliers so not used).
 
 Formula for (minus) 1s:		x=num/10
 Formula for (plus) 3s:		x=((num/10)*3)+1
 Formula for (minus) 7s:		x=((num/10)*3)+2
 Formula for (plus) 9s:		x=(num/10)+1
+
 Formula for (plus) 7s:		x=((num/10)*7)+5
 Formula for (minus) 3s:	x=((num/10)*7)+2
-
 
 
 In this version we use a side counting system to filter out multiples of 2,3,5,7,11 and 13. Our basic counting system is an alternative +2,+4 so our count goes that goes 
