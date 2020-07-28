@@ -1,4 +1,16 @@
-This program uses an old trick to determine whether a number is divisible by a factor or not by performing a series of multiplication and addition/subtraction calculations. We take a number and apply a rule to it.
+Not too sure why a copy and paste from Word has so may italics in it.
+
+This program uses an old trick to determine whether a number is divisible by a factor or not by performing a series of multiplication and addition/subtraction calculations. We
+take a number and apply a rule to it.
+
+You may have encountered the trick of figuring out whether a number is divisble by 7 by using a multiple and subtract method on the digits. This program extends that concept as
+there is a pattern to this and the formulas have been determined for all numbers ending in 1,3,7 or 9 (see below). We do not need to determine this formula for numbers divisible
+by 2,3 or 5 as there are other simple methods for doing this.
+
+Before we go on, I just need to point out that this is the result of learning to program in about 6 months. I will make no apologies for style as I like to see a lot of code on
+the one screen. Apologies for the actual code content will be granted on request. ;-)
+
+On with the show.
 
 The multipliers we use are calculated according to the rules as shown under the table below:
 
@@ -39,7 +51,7 @@ And another:
 
 This was written as a way of learning the C programming language. It started off with an array system that could do really, really big numbers by a series of arrays but could 
 only do factors up to (2^64)-1. This approach was testing one factor at a time. A future version of this program may incorporate the series of arrays system but until now it
-is limited to numbers of 128,000 digits in length. That is more than my laptop can handle.
+is limited to numbers of 128,000 digits in length. That is what my 4Gb laptop can handle.
 
 As we can see factors ending in either 1, 3, 7, or 9 can be tested with the above process. Even numbers are tested by checking whether the last digit is 0, 2, 4, 6 or 8 and 
 divisibility of five is similarly calculated by checking for 0 or 5. Divisibility by 3 is done by taking the sum of the digits and checking whether that is divisible by 3.
@@ -53,7 +65,7 @@ A different test is done for 11s; two sums are made form each alternating digit 
 2746502
 (2+4+5+2)-(7+6+0)=0
 
-
+Note: this test has been superceded by the 7,11,13 test.
 
  
 Multiplier values for some factors:
@@ -81,25 +93,45 @@ Multiplier values for some factors:
 201	20	203	61	207	62	209	21		207	145		203	142
 211	21	213	64	217	65	219	22		217	152		213	149
 
-The columns at the right shows that 7s can be done with an additive process and 3s with a subtractive process, this not used.
+The columns at the right shows that 7s can be done with an additive process and 3s with a subtractive process, these are not used.
 
 
-Formula for 1s:		x=num/10
-Formula for 3s:		x=((num/10)*3)+1
-Formula for 7s:		x=((num/10)*3)+2
-Formula for 9s:		x=(num/10)+1
-Formula for plus 7s:		x=((num/10)*7)+5
-Formula for minus 3s:	x=((num/10)*7)+2
+Formula for (minus) 1s:		x=num/10
+Formula for (plus) 3s:		x=((num/10)*3)+1
+Formula for (minus) 7s:		x=((num/10)*3)+2
+Formula for (plus) 9s:		x=(num/10)+1
+Formula for (plus) 7s:		x=((num/10)*7)+5
+Formula for (minus) 3s:	x=((num/10)*7)+2
 
 
 
-In this version we use a side counting system to filter out multiples of 2,3,5,7,11 and 13. Our basic counting system is an alternative 2,4 so our count eg: 11,13,17,19,23,25,29
-skips multiples of 3 and even numbers. We eliminate multiples of 5 by detrmining whether the last digit is 5. We eliminate multiples of 7,11 and 13 by using a counting system.
+In this version we use a side counting system to filter out multiples of 2,3,5,7,11 and 13. Our basic counting system is an alternative +2,+4 so our count goes that goes 
+like this: 11,13,17,19,23,25,29,31,35....
+skips multiples of 3 and even numbers. We eliminate multiples of 5 by detrmining whether the last digit is 5. We eliminate multiples of 7,11 and 13 by using a counting system
+(v,w,x,y).
 
 We can do the filtering of these numbers as we have used the 2,3,5,7,11,13 testing module described in another project.
 
+I wrote this to see if there was a faster way to determine the primality of a number - turns out it's rather slow but it can determine the divisibility of 2,3,5,7,11,and 13
+relatively quickly on quite large numbers. It can determine that 999999999999989 is prime in just under 16 seconds on my 1.1Ghz laptop. 99999999999973 takes a few seconds.
+I thought with the use of a single multiplier (the last digit) and a less than a third multiplier (see formulas) and simple array addition or subtraction that these
+operations may speed up the process.
 
-I wrote this to see if there was a faster way to determine the primality of a number - turns out it's rather slow. It can determine that 999999999999989 is prime in just
-under 16 seconds on my 1.1Ghz laptop. 99999999999973 takes a few seconds.
+Print statements have been left in for debugging and for seeing how it works. Toggle z to equal 1 to enable printouts. conio.h included to highlight factors and factor multiples
+in printout.
+At the prompt input a number up to 1000 (can be increased) digits long and end it with an 'e'*, then press enter. A crude status bar will indicate progress by counting back dots
+from the
+number of digits the root of the number is expected to have. Obviously some numbers need not go all the way to root to find their lowest multiple.
+Output of 1 indicates the number is prime.
 
-Better programmers can undoubtably make this a little quicker.
+I think I can make this code even more confusing and submit it as an entry to the Obfucated C Code Contest. Primarily working on the novelty of the idea. Obviously the
+variable and function names need to be shrunk and possibly a define needed(#define "something" for(j=1;j<=n;j++) cuts a bit out).
+
+Tested extensively but I can't guarantee that there will not be errors. It is very possible that experienced programmers can make this a little more efficient. I think I would
+like one day to be able to code something like this (or simple portions of it) in assembly, but that's a long way off.
+
+Some speed was lost on the way especially using functions. This and other ways of shrinking the code may have comprimised accuracy. It may be possible to take t=8 down for a
+slight speed increase with the adjustment of the program. Again, some things comprimised to shrink the code.
+
+* The longer version of this has the abililty to filter out carriage returns in the input so you can input really, really big numbers (like up to 128,000 digits long) and not be
+limited by keyboard buffers. 1001 (7*11*13) chosen as the number is used in the 7,11,13 test.
