@@ -1,4 +1,4 @@
-Not too sure why a copy and paste from Word has so may italics in it.
+Not too sure why a copy and paste from Word has so may italics in it as there were none in the original. Just started learning GitHub.
 
 This program uses an old trick to determine whether a number is divisible by a factor or not by performing a series of multiplication and addition/subtraction calculations. We
 take a number and apply a rule to it.
@@ -118,4 +118,4 @@ Some speed was lost on the way especially using functions. This and other ways o
 slight speed increase with the adjustment of the program. Again, some things comprimised to shrink the code.
 
 * The longer version of this has the abililty to filter out carriage returns in the input so you can input really, really big numbers (like up to 128,000 digits long) and not be
-limited by keyboard buffers. 1001 (7*11*13) chosen as the number is used in the 7,11,13 test.
+limited by keyboard buffers. 1001 (7x11x13) chosen as the number is used in the 7,11,13 test.
