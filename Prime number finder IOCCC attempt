@@ -1,0 +1,74 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+int main(void){
+int s=1001,ari[s],a=0,b=0,dcq,bdcn,bdcq=2,i=1,j,dcn,dco,q,r=0,t,u=3,v=0,w=1,x=2,y=0,z=0,m=0,l=0,sum=0,e;
+char c,num[s],qar[s],bnum[s],bqar[s];
+for(j=1;j<s;j++){ari[j]=num[j]=bnum[j]=bqar[j]=qar[j]=0;}bqar[1]=3;bqar[2]=1;
+for(dcn=1;dcn<s;dcn++){c=getchar();num[dcn]=c-48;if(c==10){dcn--;}if((c==101)||dcn>s){num[dcn+1]=num[dcn]=0;bdcn=dcn--;break;}}
+
+for(j=1,t=dcn;j<=dcn;j++,t--){ari[j]=num[t];}for(j=1;j<=dcn;j++){bnum[j]=num[j]=ari[j];ari[j]=0;}
+
+if(md(t=num[1],2)==0){ex(2);}for(j=1;j<=dcn;j+=2){a+=num[j];b+=num[j+1];}if(md(a+b,3)==0){ex(3);}if(t==5){ex(5);}
+while(r<dcn){r++;num[r]+=num[r-1]*5;cor(num,dcn);}if(md((num[dcn+1]*10)+num[dcn],7)==0){ex(7);}
+if(md(b-a,11)==0){ex(11);}dcn=bdcn;copy(num,bnum,dcn,dcn);
+
+
+dcn+=md(dcn-1,3);a=1;for(j=1;j<=dcn-1;j+=3){ari[a]=num[j]+num[j+1]*10+num[j+2]*100;a++;}
+for(j=1;j<=a-1;j++){if(md(j,2)==0){sum+=ari[j];}else{sum-=ari[j];}
+if(sum>=s){sum-=s;}if(sum<=-s){sum+=s;}}if(md(abs(sum),13)==0){ex(13);}cln(ari,a);dcn=bdcn;
+
+
+r=dv(dcn,2);for(j=1;j<=r;j++){printf(".");}
+if(md(dcn,2)==1){u=9;}else{printf("\b \b");}while(bdcq<=r&&i!=0){v++;w++;x++;y++;if(x>14){x=1;}if(w>22){w=1;}
+if(v>26){v=1;}
+if(y==1){bqar[1]+=4;}else{bqar[1]+=2;y=0;}bdcq=cor(bqar,bdcq);q=bqar[1];
+if(m<bdcq){printf("\b \b");}m=bdcq;
+if(x!=9&&x!=14&&w!=15&&w!=22&&q!=5&&v!=17&&v!=26){if(bdcq==r&&bqar[bdcq]>u){break;}
+// variable v added to filter out 13s  //&&v!=17&&v!=26
+if(z==1){_textcolor(4);printf("%d Factor=  x=%d w=%d ",bdcq,x,w);prt(bqar,bdcq,1);}
+for(j=2;j<=bdcq;j++){qar[j-1]=bqar[j];}qar[bdcq]=0;dcq=bdcq;if(q==3||q==7){dcq=mul(qar,qar,dcq,3);qar[1]+=1;}
+
+if(q==7||q==9){qar[1]+=1;}dcq=mul(qar,qar,dcq,1);if(qar[dcq]==0){dcq--;}
+if(z==1){printf("%d\tMul= ",dcq);prt(qar,dcq-1,1);_textcolor(15);}
+
+dco=dcn-1;cln(ari,bdcn+1);
+if(q==3||q==9){l=1;}
+while(dcn>bdcq+l){t=num[1];for(j=1;j<=dcn;j++){num[j]=num[j+1];}dcn--;
+
+if(z==1){prt(num,dco,1);printf("dco=%d dcn=%d bdcq=%d\n",dco,dcn,bdcq);}
+dco=mul(ari,qar,dcq,t);
+if(z==1){prt(ari,dco+1,1);}
+
+if(q==3||q==9){dco=add(num,dcn,ari);}
+
+else{dco=min(num,dcn,ari,dco);if(dco<=0){b=j=0;while(b==0){j++;if(num[j]!=0)b++;break;}if(b==0){i=b;break;}}}
+
+if(z==1){prt(num,dco,1);}
+}
+
+
+if(z==1){if(z==1){prt(num,dco,1);}}
+cln(qar,bdcn);copy(qar,bqar,bdcq);dco=bdcq;for(t=1;t<8;t++){s=0;for(j=1;j<=bdcq+1;j++){
+if(z==1){printf("t=%d dco=%d comp ari=%d num=%d\n",s,dco,qar[j],num[j]);prt(qar,dco,1);}
+if(qar[j]!=num[j]){s++;break;}}if(s==0){i=0;break;}dco=add(qar,dco,bqar,bdcq);}
+
+dcn=bdcn;copy(num,bnum,dcn);cln(ari,bdcn+1);cln(qar,bdcn+1);}}
+
+if(i==0){for(j=bdcq;j>=1;j--){printf("%d",bqar[j]);}printf("\n");}else{ex(1);}}
+
+min(char*x,int m,char*y,int o){int e=0,j,n;if(m>=o){n=m+1;e=1;}if(o>=m){n=o+1;e=0;}
+for(j=n;j>=1;j--){if(x[j]>y[j]){e=1;break;}if(x[j]<y[j]){e=0;break;}}//if(x[j]==y[j]){e=1;}
+if(e==1){for(j=1;j<=n;j++)x[j]-=y[j];}if(e==0){n++;for(j=1;j<=n;j++)x[j]=y[j]-x[j];}
+for(j=1;j<=n;j++){if(x[j]<0){x[j]+=10;x[j+1]-=1;}}for(j=n;j>0;j--){if(x[j]<=0){n--;}if(x[j]>0){break;}}return(n);}
+
+add(char*x,int n,char*y){int j;for(j=1;j<=n;j++){x[j]+=y[j];}n=cor(x,n);if(x[n]==0){n--;}return(n);}
+copy(char*x,char*y,int n){int j;for(j=1;j<=n;j++)x[j]=y[j];}
+mul(char*x,char*y,int n,int t){int j;n++;for(j=1;j<=n;j++){x[j]=y[j]*t;}n=cor(x,n);return(n);}
+ex(int m){printf("%d\n",m);}
+md(int n,int m){if(n<m){return(n);}while(n>=m){n-=m;}return(n);}
+dv(int n,int m){int c=0;while(n>=m){n-=m;c++;}return(c);}
+cln(char*x,int n){int j;for(j=1;j<=n;j++)x[j]=0;}
+cor(char*x,int n){int j,t;for(j=1;j<=n;j++)if(x[j]>9){t=x[j];x[j]=md(t,10);x[j+1]+=dv(t,10);if(t>0&&j>=n){n++;}}return(n);}
+
+prt(char*a,int n,int d){int j;for(j=n;j>=d;j--){printf("%d ",a[j]);}printf("\n");}
